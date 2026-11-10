@@ -1,0 +1,203 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated passenger or platform user profile with isolated PII.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Firebase Auth UID of the user." },
+        "fullName": { "type": "string", "description": "User full name." },
+        "phone": { "type": "string", "description": "Pakistani mobile phone number (+92 format)." },
+        "email": { "type": "string", "description": "Verified email address." },
+        "homeLocation": { "type": "string", "description": "Saved home address in Quetta." },
+        "workLocation": { "type": "string", "description": "Saved work or university address." },
+        "emergencyContact": { "type": "string", "description": "Trusted emergency contact phone." },
+        "totalRides": { "type": "integer", "description": "Total completed rides count." },
+        "rating": { "type": "number", "description": "Average passenger rating." },
+        "walletBalancePkr": { "type": "integer", "description": "Wallet balance in PKR." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp of creation." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp of last update." }
+      },
+      "required": ["userId", "fullName", "phone", "email", "createdAt", "updatedAt"]
+    },
+    "DriverProfile": {
+      "title": "DriverProfile",
+      "description": "Registered Quetta Ride Captain profile and live GPS availability.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Firebase Auth UID of the driver." },
+        "fullName": { "type": "string", "description": "Driver full name." },
+        "phone": { "type": "string", "description": "Driver contact number." },
+        "email": { "type": "string", "description": "Driver email." },
+        "cnic": { "type": "string", "description": "NADRA CNIC number." },
+        "licenseNumber": { "type": "string", "description": "Balochistan driving license number." },
+        "vehicleCategory": { "type": "string", "enum": ["BIKE", "RICKSHAW", "ALTO"], "description": "Vehicle category." },
+        "vehicleModel": { "type": "string", "description": "Vehicle make and model." },
+        "vehiclePlate": { "type": "string", "description": "Excise registration plate." },
+        "vehicleColor": { "type": "string", "description": "Vehicle color." },
+        "approvalStatus": { "type": "string", "enum": ["PENDING", "APPROVED", "REJECTED", "SUSPENDED"], "description": "Admin approval status." },
+        "isOnline": { "type": "boolean", "description": "Online availability for dispatch." },
+        "latitude": { "type": "number", "description": "Live GPS latitude." },
+        "longitude": { "type": "number", "description": "Live GPS longitude." },
+        "rating": { "type": "number", "description": "Average captain rating." },
+        "totalTrips": { "type": "integer", "description": "Total lifetime completed trips." },
+        "todayEarningsPkr": { "type": "integer", "description": "Earnings today in PKR." },
+        "todayRides": { "type": "integer", "description": "Completed rides today." },
+        "documentsVerified": { "type": "boolean", "description": "Whether CNIC and license are verified." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server creation timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server update timestamp." }
+      },
+      "required": ["userId", "fullName", "phone", "cnic", "vehicleCategory", "vehicleModel", "vehiclePlate", "approvalStatus", "isOnline", "latitude", "longitude", "createdAt", "updatedAt"]
+    },
+    "DriverDocument": {
+      "title": "DriverDocument",
+      "description": "Protected CNIC, Driving License, and Vehicle Registration metadata.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Driver Auth UID." },
+        "docType": { "type": "string", "enum": ["CNIC", "DRIVING_LICENSE", "VEHICLE_REGISTRATION"], "description": "Document category." },
+        "docNumber": { "type": "string", "description": "Document reference number." },
+        "verificationStatus": { "type": "string", "enum": ["PENDING", "VERIFIED", "REJECTED"], "description": "Verification status." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server creation timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server update timestamp." }
+      },
+      "required": ["userId", "docType", "docNumber", "verificationStatus", "createdAt", "updatedAt"]
+    },
+    "RideBooking": {
+      "title": "RideBooking",
+      "description": "Production ride booking record with transactional driver matching and live GPS coordinates.",
+      "type": "object",
+      "properties": {
+        "passengerId": { "type": "string", "description": "Passenger Auth UID." },
+        "passengerName": { "type": "string", "description": "Passenger full name." },
+        "passengerPhone": { "type": "string", "description": "Passenger phone." },
+        "driverId": { "type": "string", "description": "Assigned Driver UID (empty if searching)." },
+        "driverName": { "type": "string", "description": "Assigned Driver name." },
+        "vehicleCategory": { "type": "string", "enum": ["BIKE", "RICKSHAW", "ALTO"], "description": "Requested vehicle class." },
+        "vehicleModel": { "type": "string", "description": "Assigned vehicle model." },
+        "vehiclePlate": { "type": "string", "description": "Assigned vehicle registration plate." },
+        "pickupName": { "type": "string", "description": "Pickup landmark/address." },
+        "pickupLat": { "type": "number", "description": "Pickup GPS latitude." },
+        "pickupLng": { "type": "number", "description": "Pickup GPS longitude." },
+        "destName": { "type": "string", "description": "Destination landmark/address." },
+        "destLat": { "type": "number", "description": "Destination GPS latitude." },
+        "destLng": { "type": "number", "description": "Destination GPS longitude." },
+        "distanceKm": { "type": "number", "description": "Calculated route distance in km." },
+        "estimatedMinutes": { "type": "integer", "description": "Estimated duration in minutes." },
+        "farePkr": { "type": "integer", "description": "Total ride fare in PKR." },
+        "commissionPkr": { "type": "integer", "description": "Platform service commission in PKR." },
+        "driverNetPkr": { "type": "integer", "description": "Driver net payout in PKR." },
+        "paymentMethod": { "type": "string", "enum": ["CASH", "EASYPAISA", "JAZZCASH"], "description": "Selected payment method." },
+        "paymentStatus": { "type": "string", "enum": ["PENDING", "PAID_CASH", "PAID_DIGITAL"], "description": "Payment settlement status." },
+        "status": { "type": "string", "enum": ["SEARCHING_DRIVER", "DRIVER_ASSIGNED", "DRIVER_ARRIVING", "IN_PROGRESS", "COMPLETED", "CANCELLED"], "description": "Lifecycle state." },
+        "driverLat": { "type": "number", "description": "Live driver latitude during trip." },
+        "driverLng": { "type": "number", "description": "Live driver longitude during trip." },
+        "passengerRating": { "type": "integer", "description": "1 to 5 star rating after completion." },
+        "passengerReview": { "type": "string", "description": "Written passenger review." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server creation timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server update timestamp." }
+      },
+      "required": ["passengerId", "passengerName", "passengerPhone", "vehicleCategory", "pickupName", "pickupLat", "pickupLng", "destName", "destLat", "destLng", "distanceKm", "estimatedMinutes", "farePkr", "commissionPkr", "driverNetPkr", "paymentMethod", "paymentStatus", "status", "createdAt", "updatedAt"]
+    },
+    "RideLocationTelemetry": {
+      "title": "RideLocationTelemetry",
+      "description": "Real-time GPS telemetry point recorded during an active ride.",
+      "type": "object",
+      "properties": {
+        "bookingId": { "type": "string", "description": "Associated booking ID." },
+        "userId": { "type": "string", "description": "Sender Auth UID." },
+        "role": { "type": "string", "enum": ["PASSENGER", "DRIVER"], "description": "Sender role." },
+        "latitude": { "type": "number", "description": "GPS latitude." },
+        "longitude": { "type": "number", "description": "GPS longitude." },
+        "accuracyMeters": { "type": "number", "description": "GPS horizontal accuracy in meters." },
+        "speedMps": { "type": "number", "description": "Speed in meters/second." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp." }
+      },
+      "required": ["bookingId", "userId", "role", "latitude", "longitude", "accuracyMeters", "createdAt"]
+    },
+    "FareConfiguration": {
+      "title": "FareConfiguration",
+      "description": "Admin-controlled fare pricing parameters per vehicle category.",
+      "type": "object",
+      "properties": {
+        "categoryId": { "type": "string", "enum": ["BIKE", "RICKSHAW", "ALTO"], "description": "Vehicle category identifier." },
+        "baseFarePkr": { "type": "integer", "description": "Base flag-fall fare in PKR." },
+        "perKmRatePkr": { "type": "integer", "description": "Per-kilometer rate in PKR." },
+        "perMinuteRatePkr": { "type": "integer", "description": "Per-minute travel rate in PKR." },
+        "minimumFarePkr": { "type": "integer", "description": "Minimum total fare in PKR." },
+        "waitingChargePerMinPkr": { "type": "integer", "description": "Waiting charge per minute in PKR." },
+        "cancellationFeePkr": { "type": "integer", "description": "Cancellation fee in PKR." },
+        "commissionPercent": { "type": "integer", "description": "Platform commission percentage." },
+        "isActive": { "type": "boolean", "description": "Whether category is active." },
+        "updatedBy": { "type": "string", "description": "Admin UID who updated the config." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server creation timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server update timestamp." }
+      },
+      "required": ["categoryId", "baseFarePkr", "perKmRatePkr", "perMinuteRatePkr", "minimumFarePkr", "waitingChargePerMinPkr", "cancellationFeePkr", "commissionPercent", "isActive", "updatedBy", "createdAt", "updatedAt"]
+    },
+    "SupportComplaint": {
+      "title": "SupportComplaint",
+      "description": "Customer or driver support ticket and complaint record.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Submitter Auth UID." },
+        "submittedBy": { "type": "string", "description": "Submitter display name." },
+        "role": { "type": "string", "enum": ["PASSENGER", "DRIVER"], "description": "Submitter role." },
+        "bookingId": { "type": "string", "description": "Related booking ID." },
+        "subject": { "type": "string", "description": "Ticket subject." },
+        "description": { "type": "string", "description": "Ticket details." },
+        "status": { "type": "string", "enum": ["OPEN", "IN_REVIEW", "RESOLVED"], "description": "Resolution status." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server creation timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server update timestamp." }
+      },
+      "required": ["userId", "submittedBy", "role", "bookingId", "subject", "description", "status", "createdAt", "updatedAt"]
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Immutable security and administrative action log.",
+      "type": "object",
+      "properties": {
+        "actorUid": { "type": "string", "description": "UID performing the action." },
+        "action": { "type": "string", "description": "Action name." },
+        "targetId": { "type": "string", "description": "Target entity ID." },
+        "details": { "type": "string", "description": "Summary details." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server creation timestamp." }
+      },
+      "required": ["actorUid", "action", "targetId", "details", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Passenger and user profile documents keyed by Auth UID."
+    },
+    "/drivers/{driverId}": {
+      "schema": { "$ref": "#/entities/DriverProfile" },
+      "description": "Driver/Captain profiles and live GPS coordinates keyed by Driver UID."
+    },
+    "/driver_documents/{docId}": {
+      "schema": { "$ref": "#/entities/DriverDocument" },
+      "description": "Restricted CNIC, Driving License, and Vehicle Registration records."
+    },
+    "/bookings/{bookingId}": {
+      "schema": { "$ref": "#/entities/RideBooking" },
+      "description": "Real-time ride bookings across Quetta."
+    },
+    "/ride_locations/{locationId}": {
+      "schema": { "$ref": "#/entities/RideLocationTelemetry" },
+      "description": "Real-time GPS breadcrumbs recorded during active rides."
+    },
+    "/fare_configuration/{categoryId}": {
+      "schema": { "$ref": "#/entities/FareConfiguration" },
+      "description": "Vehicle category fare parameters."
+    },
+    "/complaints/{complaintId}": {
+      "schema": { "$ref": "#/entities/SupportComplaint" },
+      "description": "Customer and captain support complaints."
+    },
+    "/audit_logs/{logId}": {
+      "schema": { "$ref": "#/entities/AuditLog" },
+      "description": "Immutable administrative audit logs."
+    }
+  }
+}

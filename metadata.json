@@ -1,0 +1,6 @@
+{
+  "name": "Quetta Ride",
+  "description": "Smart multi-vehicle ride-hailing platform for Quetta featuring Passenger, Driver, Admin, and Web Portal experiences.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

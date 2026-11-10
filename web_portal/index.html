@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quetta Ride — Smart Multi-Vehicle Ride-Hailing Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8FAFC; color: #0F172A; }
+    h1, h2, h3, .brand-font { font-family: 'Space Grotesk', sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Top Universal Navigation Bar -->
+  <header class="bg-[#0A192F] text-white sticky top-0 z-50 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-[#FACC15] text-[#0A192F] flex items-center justify-center font-bold text-xl shadow">
+          📍
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="brand-font text-lg font-bold tracking-wide">QUETTA RIDE</span>
+            <span class="text-xs bg-[#FACC15]/20 text-[#FACC15] px-2.5 py-0.5 rounded-full font-semibold">Quetta • Balochistan</span>
+          </div>
+          <p class="text-xs text-slate-300">Book Smart. Ride Safe. Reach Anywhere.</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 bg-[#112240] p-1.5 rounded-xl">
+        <button onclick="switchMode('website')" id="tab-website" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-[#FACC15] text-[#0A192F]">🌐 Website</button>
+        <button onclick="switchMode('passenger')" id="tab-passenger" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-white hover:bg-white/10">🚖 Passenger App</button>
+        <button onclick="switchMode('driver')" id="tab-driver" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-white hover:bg-white/10">🪪 Driver App</button>
+        <button onclick="switchMode('admin')" id="tab-admin" class="px-3.5 py-1.5 rounded-lg text-xs font-bold text-white hover:bg-white/10">📊 Admin HQ</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6">
+    <!-- 1. WEBSITE PORTAL -->
+    <section id="view-website" class="space-y-8">
+      <div class="rounded-3xl bg-gradient-to-br from-[#0A192F] via-[#112240] to-[#1E3A8A] text-white p-8 md:p-12 shadow-xl">
+        <span class="inline-block bg-[#FACC15] text-[#0A192F] text-xs font-bold px-3 py-1 rounded-full mb-4">PHASE 1 LAUNCH • QUETTA, PAKISTAN</span>
+        <h1 class="text-3xl md:text-5xl font-bold mb-4">Your City. Your Ride. Your Way.</h1>
+        <p class="text-slate-200 text-base md:text-lg max-w-2xl mb-6">
+          Book bikes, rickshaws and comfortable cars across Quetta with just a few taps — connecting Jinnah Road, Satellite Town, Sariab Road, Brewery Road, and Quetta Airport.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <button onclick="switchMode('passenger')" class="bg-[#FACC15] text-[#0A192F] font-bold px-6 py-3 rounded-xl shadow hover:bg-yellow-300 transition">Book a Ride Now</button>
+          <button onclick="switchMode('driver')" class="border-2 border-[#FACC15] text-[#FACC15] font-bold px-6 py-3 rounded-xl hover:bg-[#FACC15]/10 transition">Become a Driver</button>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="text-4xl mb-3">🏍️</div>
+          <h3 class="text-xl font-bold text-[#0A192F]">Motorcycle / Bike</h3>
+          <p class="text-sm text-emerald-700 font-semibold mb-2">1 Passenger • Fast Solo Commute</p>
+          <p class="text-sm text-slate-600 mb-4">Beat Jinnah Road & Liaquat Bazaar traffic quickly with a verified captain and clean helmet.</p>
+          <button onclick="selectVehicleAndBook('BIKE')" class="w-full bg-[#0A192F] text-[#FACC15] font-bold py-2.5 rounded-xl">Book Bike (From PKR 90)</button>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="text-4xl mb-3">🛺</div>
+          <h3 class="text-xl font-bold text-[#0A192F]">Auto Rickshaw</h3>
+          <p class="text-sm text-emerald-700 font-semibold mb-2">2–3 Passengers • Neighborhood & Bazaar</p>
+          <p class="text-sm text-slate-600 mb-4">Traditional 4-stroke Pakistani rickshaw with upfront digital fare and zero haggling.</p>
+          <button onclick="selectVehicleAndBook('RICKSHAW')" class="w-full bg-[#0A192F] text-[#FACC15] font-bold py-2.5 rounded-xl">Book Rickshaw (From PKR 160)</button>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="text-4xl mb-3">🚗</div>
+          <h3 class="text-xl font-bold text-[#0A192F]">Suzuki Alto / Small Car</h3>
+          <p class="text-sm text-emerald-700 font-semibold mb-2">4 Passengers • Family Comfort</p>
+          <p class="text-sm text-slate-600 mb-4">Comfortable Alto 660cc hatchback for families, hospital visits, and Quetta Airport transfers.</p>
+          <button onclick="selectVehicleAndBook('ALTO')" class="w-full bg-[#0A192F] text-[#FACC15] font-bold py-2.5 rounded-xl">Book Alto (From PKR 280)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PASSENGER APP -->
+    <section id="view-passenger" class="hidden grid md:grid-cols-2 gap-6">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+        <h2 class="text-2xl font-bold text-[#0A192F]">Plan Your Quetta Ride</h2>
+        <div>
+          <label class="text-xs font-bold text-slate-500 uppercase">Pickup Location</label>
+          <select id="pickup-select" onchange="updatePassengerFare()" class="w-full mt-1 p-3 rounded-xl border border-slate-300 font-semibold">
+            <option value="0">Jinnah Road (Commercial Center)</option>
+            <option value="1">Satellite Town (Block 3 Market)</option>
+            <option value="2">Sariab Road (University of Balochistan)</option>
+            <option value="3">Airport Road (Alamdar Chowk)</option>
+            <option value="4">Brewery Road (BMC & BUITEMS)</option>
+            <option value="5">Quetta Railway Station</option>
+            <option value="6">Quetta International Airport</option>
+            <option value="7">Kuchlak Highway Hub</option>
+            <option value="8">Zarghoon Road (Serena Chowk)</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-xs font-bold text-slate-500 uppercase">Destination</label>
+          <select id="dest-select" onchange="updatePassengerFare()" class="w-full mt-1 p-3 rounded-xl border border-slate-300 font-semibold">
+            <option value="1" selected>Satellite Town (Block 3 Market)</option>
+            <option value="0">Jinnah Road (Commercial Center)</option>
+            <option value="2">Sariab Road (University of Balochistan)</option>
+            <option value="4">Brewery Road (BMC & BUITEMS)</option>
+            <option value="6">Quetta International Airport</option>
+            <option value="8">Zarghoon Road (Serena Chowk)</option>
+          </select>
+        </div>
+        <div id="fare-cards" class="space-y-3 pt-2"></div>
+        <button onclick="confirmWebBooking()" class="w-full bg-[#FACC15] text-[#0A192F] font-bold py-3.5 rounded-xl shadow text-base">Confirm Quetta Ride Booking</button>
+      </div>
+
+      <div class="bg-[#0A192F] text-white p-6 rounded-2xl shadow-lg flex flex-col justify-between">
+        <div>
+          <span class="text-xs bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full font-bold">QUETTA SIMULATED GPS GRID</span>
+          <h3 class="text-xl font-bold mt-3" id="live-status-heading">Ready to Dispatch Nearby Captain</h3>
+          <p class="text-sm text-slate-300 mt-1" id="live-status-sub">Select your pickup, destination, and vehicle category to start live tracking.</p>
+        </div>
+        <div class="my-6 p-4 rounded-xl bg-white/10 space-y-2">
+          <div class="flex justify-between text-sm"><span>Assigned Captain:</span><strong id="captain-name">Mirwais Khan Achakzai</strong></div>
+          <div class="flex justify-between text-sm"><span>Vehicle Plate:</span><strong id="captain-plate">QTA-24-8812</strong></div>
+          <div class="flex justify-between text-sm"><span>Demonstration Fare:</span><strong class="text-[#FACC15] text-lg" id="captain-fare">PKR 420</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. DRIVER APP -->
+    <section id="view-driver" class="hidden space-y-6">
+      <div class="bg-[#0A192F] text-white p-6 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-bold">Captain Mirwais Khan Achakzai</h2>
+          <p class="text-sm text-[#FACC15]">Suzuki Alto VXR • Plate: QTA-24-8812 • CNIC Verified</p>
+        </div>
+        <div class="text-right">
+          <p class="text-xs text-slate-300">TODAY'S EARNINGS</p>
+          <p class="text-3xl font-bold text-emerald-400">PKR 3,850</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ADMIN HQ -->
+    <section id="view-admin" class="hidden space-y-6">
+      <h2 class="text-2xl font-bold text-[#0A192F]">Quetta Ride Executive Admin Dashboard</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-xl border"><p class="text-xs text-slate-500">Total Passengers</p><p class="text-2xl font-bold">1,484</p></div>
+        <div class="bg-white p-4 rounded-xl border"><p class="text-xs text-slate-500">Active Captains</p><p class="text-2xl font-bold text-emerald-600">318</p></div>
+        <div class="bg-white p-4 rounded-xl border"><p class="text-xs text-slate-500">Completed Rides</p><p class="text-2xl font-bold">6,694</p></div>
+        <div class="bg-white p-4 rounded-xl border"><p class="text-xs text-slate-500">Est. Revenue</p><p class="text-2xl font-bold text-emerald-700">PKR 1.84M</p></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let selectedVehicle = 'ALTO';
+    const vehicles = {
+      BIKE: { name: 'Motorcycle / Bike', base: 45, perKm: 22, captain: 'Zafarullah Kakar', plate: 'QTA-23-1109' },
+      RICKSHAW: { name: 'Auto Rickshaw', base: 80, perKm: 36, captain: 'Bilal Ahmed Mengal', plate: 'QTA-22-4190' },
+      ALTO: { name: 'Suzuki Alto / Car', base: 140, perKm: 52, captain: 'Mirwais Khan Achakzai', plate: 'QTA-24-8812' }
+    };
+
+    function switchMode(mode) {
+      ['website', 'passenger', 'driver', 'admin'].forEach(m => {
+        document.getElementById('view-' + m).classList.add('hidden');
+        const tab = document.getElementById('tab-' + m);
+        tab.className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold text-white hover:bg-white/10';
+      });
+      document.getElementById('view-' + mode).classList.remove('hidden');
+      document.getElementById('tab-' + mode).className = 'px-3.5 py-1.5 rounded-lg text-xs font-bold bg-[#FACC15] text-[#0A192F]';
+      if (mode === 'passenger') updatePassengerFare();
+    }
+
+    function selectVehicleAndBook(v) {
+      selectedVehicle = v;
+      switchMode('passenger');
+    }
+
+    function updatePassengerFare() {
+      const p = parseInt(document.getElementById('pickup-select').value);
+      const d = parseInt(document.getElementById('dest-select').value);
+      const distKm = Math.max(2.2, Math.abs(p - d) * 2.1 + 1.8).toFixed(1);
+      const container = document.getElementById('fare-cards');
+      container.innerHTML = '';
+      Object.keys(vehicles).forEach(key => {
+        const v = vehicles[key];
+        const fare = Math.round(v.base + distKm * v.perKm);
+        const active = key === selectedVehicle;
+        container.innerHTML += `
+          <div onclick="selectedVehicle='${key}';updatePassengerFare()" class="cursor-pointer p-3.5 rounded-xl border ${active ? 'border-2 border-[#0A192F] bg-yellow-50' : 'border-slate-200'} flex justify-between items-center">
+            <div>
+              <div class="font-bold text-[#0A192F]">${v.name}</div>
+              <div class="text-xs text-slate-500">${distKm} km • Captain ${v.captain}</div>
+            </div>
+            <div class="text-lg font-bold text-[#0A192F]">PKR ${fare}</div>
+          </div>`;
+        if (active) {
+          document.getElementById('captain-name').innerText = v.captain;
+          document.getElementById('captain-plate').innerText = v.plate;
+          document.getElementById('captain-fare').innerText = 'PKR ' + fare;
+        }
+      });
+    }
+
+    function confirmWebBooking() {
+      const v = vehicles[selectedVehicle];
+      document.getElementById('live-status-heading').innerText = 'Booking Confirmed! Captain En Route';
+      document.getElementById('live-status-sub').innerText = v.captain + ' (' + v.plate + ') is arriving at your pickup location in 3 mins.';
+    }
+  </script>
+</body>
+</html>

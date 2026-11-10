@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Quetta Ride</string>
+    <string name="tagline">Book Smart. Ride Safe. Reach Anywhere.</string>
+    <string name="hero_title">Your City. Your Ride. Your Way.</string>
+    <string name="hero_subtitle">Book bikes, rickshaws and comfortable cars across Quetta with just a few taps.</string>
+    <string name="book_a_ride">Book a Ride</string>
+    <string name="become_a_driver">Become a Driver</string>
+    <string name="reset_demo_data">Reset Demo Data</string>
+    <string name="demo_fare_disclaimer">Illustrative Prototype Estimate • Phase 1 Demo</string>
+</resources>
